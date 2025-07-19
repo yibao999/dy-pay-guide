@@ -1,83 +1,96 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>✨ 快捷充值推广页 ✨</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>阿狸星界控制台 · 快捷充值通道已解锁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(to right, #1a0033, #ff6fe9);
-      color: white;
+      background: url("https://pic.imgdb.cn/item/66990a839f345e8c602f836c.jpg") no-repeat center center;
+      background-size: cover;
       font-family: "Segoe UI", "PingFang SC", "Helvetica Neue", sans-serif;
+      color: white;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      min-height: 100vh;
+      backdrop-filter: brightness(1.1) blur(4px);
     }
+
     h1 {
-      font-size: 28px;
+      font-size: 26px;
       margin-top: 40px;
-      margin-bottom: 20px;
-      text-shadow: 0 0 12px #ff8bd2;
+      margin-bottom: 16px;
+      text-shadow: 0 0 12px #00ffcc;
     }
+
     .subtitle {
-      font-size: 18px;
+      font-size: 17px;
       margin-bottom: 20px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 6px 12px;
+      border-radius: 8px;
     }
+
     .qr-box {
-      background: white;
+      background: rgba(255, 255, 255, 0.8);
       padding: 16px;
       border-radius: 12px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
       margin-bottom: 20px;
     }
+
     .qr-box img {
       width: 220px;
       height: 220px;
     }
+
     .desc {
       font-size: 16px;
       margin-bottom: 30px;
       padding: 0 20px;
+      color: #e0e0e0;
     }
+
     .link-btn {
-      background: radial-gradient(circle at center, #ff8bd2, #4c00ff);
+      background: linear-gradient(135deg, #00ffe6, #5a00ff);
       color: white;
       font-size: 18px;
       padding: 12px 28px;
       border: none;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 0 20px rgba(255, 102, 229, 0.6);
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
       animation: pulse 2s infinite;
       transition: transform 0.2s ease;
     }
+
     .link-btn:hover {
       transform: scale(1.07);
-      box-shadow: 0 0 30px rgba(255, 102, 229, 0.9);
+      box-shadow: 0 0 30px rgba(0, 255, 204, 0.9);
     }
+
     @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 20px rgba(255, 102, 229, 0.6); }
-      50% { box-shadow: 0 0 40px rgba(255, 102, 229, 0.9); }
+      0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 204, 0.6); }
+      50% { box-shadow: 0 0 40px rgba(0, 255, 204, 0.9); }
     }
   </style>
 </head>
 <body>
-  <h1>✨ 快捷充值 · 一键复制 · 秒跳抖音 ✨</h1>
-  <div class="subtitle">扫码进入充值页，自动分配账号，立即跳转</div>
+  <h1>🚀 阿狸星界控制台 · 快捷充值通道已解锁</h1>
+  <div class="subtitle">连接成功 · 当前通道已接入 · 一键复制即刻传送</div>
   <div class="qr-box">
-    <img src="https://cli.im/api/qrcode/code?text=https%3A%2F%2Fyibao999.github.io%2Fdy-pay-guide%2F" alt="扫码跳转二维码">
+    <img src="https://cli.im/api/qrcode/code?text=https%3A%2F%2Fyibao999.github.io%2Fdy-pay-guide%2F" alt="扫码跳转二维码" />
   </div>
   <div class="desc">
-    当前页面支持账号池轮询机制，复制按钮带有动画提示与跳转功能。推荐使用手机扫码，跳转更便捷。
+    星界指令已同步 · 推荐手机扫码 · 即刻进入阿狸星界充值区。
   </div>
   <button class="link-btn" onclick="window.location.href='https://yibao999.github.io/dy-pay-guide/'">
-    🚀 立即进入充值页
+    ✨ 启动充值跃迁
   </button>
 </body>
 </html>
-清除重复内容
