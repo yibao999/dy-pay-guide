@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>钻石快捷充值引导页</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #000046, #1cb5e0);
+      color: #fff;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0; left: 0;
+      z-index: -1;
+    }
+
+    h1 {
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    p {
+      font-size: 18px;
+      color: #ddd;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 22px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid #fff;
+      border-radius: 6px;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 0 10px #1cb5e0;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover:enabled {
+      background-color: #1cb5e0;
+      transform: scale(1.05);
+    }
+
+    .copied, .retry, #androidTip {
+      font-size: 14px;
+      margin-top: 15px;
+      display: none;
+    }
+
+    #androidTip {
+      color: #ffeb3b;
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 30px; }
+      h1 { font-size: 24px; }
+      p, button { font-size: 16px; }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</head>
+
+<body>
+  <div id="particles-js"></div>
+
+  <h1>钻石快捷充值引导页</h1>
+  <p>点击下方按钮，快速复制账号并跳转充值</p>
+
+  <h2>充值账号</h2>
+  <p id="dyAccount">获取账号中...</p>
+  <button id="mainBtn" onclick="copyAndGo()" disabled>🚀📋 一键复制账号并跳转</button>
+
+  <div class="copied" id="copyStatus">✅ 账号已复制，正在跳转充值中...</div>
+  <div class="retry" id="retryNotice">⚠️ 若充值失败，请返回页面重试。</div>
+  <div id="androidTip">⚠️ 安卓用户请勿手动修改充值页账号，否则可能触发风控。</div>
+
+  <script>
+    let accounts = [], currentIndex = 0;
+
+    fetch('accounts.json')
+      .then(res => res.json())
+      .then(data => {
+        accounts = data;
+        updateAccount();
+        document.getElementById('mainBtn').disabled = false;
+      });
+
+    function updateAccount() {
+      document.getElementById('dyAccount').textContent = "抖音号: " + accounts[currentIndex];
+    }
+
+    function copyAndGo() {
+      const acct = accounts[currentIndex];
+      navigator.clipboard.writeText(acct).then(() => {
+        document.getElementById('copyStatus').style.display = 'block';
+        document.getElementById('mainBtn').disabled = true;
+        document.getElementById('mainBtn').textContent = "🚀📋 复制成功，跳转中...";
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        if (isAndroid) document.getElementById('androidTip').style.display = 'block';
+        setTimeout(goToDouyin, 800);
+      }).catch(() => {
+        alert("复制失败，请手动复制账号");
+      });
+    }
+
+    function goToDouyin() {
+      window.location.href = "snssdk1128://webview?url=https://www.douyin.com/pay";
+      setTimeout(() => {
+        document.getElementById("retryNotice").style.display = "block";
+        currentIndex = (currentIndex + 1) % accounts.length;
+        updateAccount();
+      }, 8000);
+    }
+
+    window.onload = function () {
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 80, density: { enable: true, value_area: 800 } },
+          color: { value: "#ffffff" },
+          shape: { type: "circle" },
+          opacity: { value: 0.5 },
+          size: { value: 5, random: true },
+          line_linked: { enable: true, distance: 150, color: "#fff", opacity: 0.4, width: 1 },
+          move: { enable: true, speed: 6 }
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" } }
+        },
+        retina_detect: true
+      });
+    };
+  </script>
+</body>
+</html>
