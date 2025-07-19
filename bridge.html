@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>星跃通道 · Node VX 接入层</title>
+  <style>
+    body {
+      background: url('./assets/bg.jpg') no-repeat center center;
+      background-size: cover;
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      display: flex; justify-content: center; align-items: center;
+      height: 100vh; margin: 0;
+    }
+    .box {
+      background: rgba(0,0,0,0.6); padding: 24px;
+      border-radius: 12px; width: 90%; max-width: 420px;
+      text-align: center; box-shadow: 0 0 20px #00ffff;
+    }
+    .button {
+      margin: 12px 0; padding: 10px 20px;
+      background: #00ccff; border: none; border-radius: 6px;
+      font-size: 16px; cursor: pointer;
+    }
+    .note {
+      margin-top: 20px; font-size: 14px; color: #ffdd66;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>星跃通道 · Node VX 接入层</h2>
+    <div id="status">⏳ 正在载入账号...</div>
+    <div id="merchant"></div>
+    <button class="button" onclick="copy()">复制商户账号</button>
+    <button class="button" onclick="jump()">跳转抖音充值</button>
+    <div class="note">🛡️ 本页面仅提供跳转服务，支付行为由客户本人完成。</div>
+  </div>
+
+  <script>
+    let account = "";
+    fetch("./api/getMerchant.json")
+      .then(r => r.json())
+      .then(d => {
+        account = d.id;
+        document.getElementById("merchant").textContent = "接收账号：" + account;
+        document.getElementById("status").textContent = "✅ 账号已就绪";
+      });
+    function copy() {
+      navigator.clipboard.writeText(account);
+      alert("✅ 已复制：" + account);
+    }
+    function jump() {
+      location.href = "https://pay.douyin.com";
+    }
+  </script>
+</body>
+</html>
