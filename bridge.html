@@ -1,58 +1,80 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>星跃通道 · Node VX 接入层</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
-      background: url('./assets/bg.jpg') no-repeat center center;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('./assets/bg.jpg');
       background-size: cover;
-      font-family: 'Orbitron', sans-serif;
+      background-position: center;
+      background-attachment: fixed;
       color: #fff;
-      display: flex; justify-content: center; align-items: center;
-      height: 100vh; margin: 0;
+      text-align: center;
     }
-    .box {
-      background: rgba(0,0,0,0.6); padding: 24px;
-      border-radius: 12px; width: 90%; max-width: 420px;
-      text-align: center; box-shadow: 0 0 20px #00ffff;
+    .container {
+      padding: 80px 20px;
     }
-    .button {
-      margin: 12px 0; padding: 10px 20px;
-      background: #00ccff; border: none; border-radius: 6px;
-      font-size: 16px; cursor: pointer;
+    h1 {
+      font-size: 32px;
+      margin-bottom: 40px;
     }
-    .note {
-      margin-top: 20px; font-size: 14px; color: #ffdd66;
+    .merchant {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 6px;
+      background-color: #00c6ff;
+      color: #fff;
+      margin: 10px;
+      cursor: pointer;
+    }
+    .toast {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #00ffcc;
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h2>星跃通道 · Node VX 接入层</h2>
-    <div id="status">⏳ 正在载入账号...</div>
-    <div id="merchant"></div>
-    <button class="button" onclick="copy()">复制商户账号</button>
-    <button class="button" onclick="jump()">跳转抖音充值</button>
-    <div class="note">🛡️ 本页面仅提供跳转服务，支付行为由客户本人完成。</div>
+  <div class="container">
+    <h1>星跃通道 · Node VX 接入层 ✅</h1>
+    <div class="merchant" id="account">接收账号：加载中...</div>
+    <button onclick="copyMerchant()">复制商户账号</button>
+    <button onclick="redirectPay()">跳转抖音充值</button>
+    <div class="toast" id="notice">🛡️ 本页面仅提供跳转服务，支付行为由客户本人完成。</div>
   </div>
 
   <script>
-    let account = "";
-    fetch("./api/getMerchant.json")
-      .then(r => r.json())
-      .then(d => {
-        account = d.id;
-        document.getElementById("merchant").textContent = "接收账号：" + account;
-        document.getElementById("status").textContent = "✅ 账号已就绪";
-      });
-    function copy() {
+    async function loadAccount() {
+      try {
+        const response = await fetch('./api/getMerchant.json');
+        const data = await response.json();
+        document.getElementById('account').textContent = '接收账号：' + data.merchant;
+      } catch (error) {
+        document.getElementById('account').textContent = '接收账号：加载失败';
+      }
+    }
+
+    function copyMerchant() {
+      const account = document.getElementById('account').textContent.replace('接收账号：', '');
       navigator.clipboard.writeText(account);
-      alert("✅ 已复制：" + account);
+      document.getElementById('notice').textContent = '✅ 已复制：' + account;
     }
-    function jump() {
-      location.href = "https://pay.douyin.com";
+
+    function redirectPay() {
+      window.location.href = 'https://pay.douyin.com'; // 你可替换为有效跳转地址
     }
+
+    loadAccount();
   </script>
 </body>
 </html>
